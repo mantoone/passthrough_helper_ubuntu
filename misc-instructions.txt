@@ -1,0 +1,14 @@
+# Compile kernel with ACSO patch
+wget https://gist.githubusercontent.com/mantoone/4d4a2c0e1b9870ed38dbf691e6b83827/raw/31e59bbbd6042905dbb6732cc606626ef1ba47f6/compile_newest_stable_kernel_with_acso_patch.sh
+chmod +x compile_newest_stable_kernel_with_acso_patch.sh
+./compile_newest_stable_kernel_with_acso_patch.sh
+
+# 
+
+# Check that iommu groups are separated
+for a in /sys/kernel/iommu_groups/*; do find $a -type l; done | sort --version-sort
+
+
+# Isolate cpu cores
+vim /etc/systemd/system.conf
+CPUAffinity=0 4
